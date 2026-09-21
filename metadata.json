@@ -1,0 +1,6 @@
+{
+  "name": "Smart Study Tutorial",
+  "description": "Progressive Web App (PWA) tutorial platform with automatic install questions upon entering via link, offline question bank, video lessons, study notes, and AI tutor.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

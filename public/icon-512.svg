@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4f46e5" />
+      <stop offset="100%" stop-color="#7c3aed" />
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#818cf8" />
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#bg)" />
+  <!-- Academic Cap & Graduation Shield Logo -->
+  <g transform="translate(64, 64) scale(0.75)">
+    <!-- Open Book Base -->
+    <path d="M60 380 C 140 340, 220 340, 256 370 C 292 340, 372 340, 452 380 L 452 180 C 372 140, 292 140, 256 170 C 220 140, 140 140, 60 180 Z" fill="#ffffff" fill-opacity="0.95" />
+    <path d="M256 170 L 256 370" stroke="#4f46e5" stroke-width="8" stroke-linecap="round" />
+    <!-- Graduation Cap Top -->
+    <polygon points="256,60 410,130 256,200 102,130" fill="url(#accent)" />
+    <!-- Tassel -->
+    <circle cx="256" cy="130" r="14" fill="#fbbf24" />
+    <path d="M256 130 Q 370 170 370 240" stroke="#fbbf24" stroke-width="8" fill="none" stroke-linecap="round" />
+    <rect x="360" y="240" width="20" height="36" rx="4" fill="#fbbf24" />
+    <!-- Sparkles / Smart Stars -->
+    <polygon points="120,80 126,95 141,95 129,104 133,119 120,110 107,119 111,104 99,95 114,95" fill="#facc15" />
+    <polygon points="390,70 395,82 408,82 398,90 401,102 390,95 379,102 382,90 372,82 385,82" fill="#facc15" />
+  </g>
+</svg>

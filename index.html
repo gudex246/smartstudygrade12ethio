@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Smart Study Tutorial</title>
+    <meta name="description" content="Progressive Web App (PWA) tutorial platform with automatic install questions upon entering via link, offline question bank, video lessons, study notes, and AI tutor." />
+    
+    <!-- PWA & Mobile Web App Meta -->
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#4f46e5" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="SmartStudy" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Smart Study Tutorial" />
+    <meta property="og:description" content="Tutorial platform with questions, videos, notes, and subscription fee access." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Google Fonts for crisp typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  </head>
+  <body class="bg-slate-950 text-slate-100 antialiased selection:bg-indigo-500 selection:text-white min-h-screen">
+    <div id="root">
+      <!-- Instant Mobile Splash Screen (Replaced automatically as soon as React mounts) -->
+      <div style="min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1.5rem; text-align: center; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+        <div style="width: 64px; height: 64px; border-radius: 20px; background: linear-gradient(135deg, #4f46e5, #7c3aed); display: flex; align-items: center; justify-content: center; color: white; font-weight: 800; font-size: 22px; margin-bottom: 18px; box-shadow: 0 10px 25px -5px rgba(79, 70, 229, 0.5);">
+          SST
+        </div>
+        <h1 style="font-size: 20px; font-weight: 700; color: #f8fafc; margin: 0 0 6px 0;">
+          Smart Study Tutorial
+        </h1>
+        <p style="font-size: 13px; color: #94a3b8; margin: 0 0 24px 0; max-width: 280px; line-height: 1.4;">
+          Ethiopian University Entrance Exam (EUEE) & Grade 12 Platform
+        </p>
+        <div style="width: 32px; height: 32px; border: 3px solid rgba(99, 102, 241, 0.2); border-top-color: #6366f1; border-radius: 50%; animation: sst-spin 0.8s linear infinite; margin-bottom: 16px;"></div>
+        <div id="sst-status" style="font-size: 12px; color: #64748b;">
+          Loading study materials...
+        </div>
+        <div id="sst-retry" style="display: none; margin-top: 20px;">
+          <button onclick="window.location.reload(true)" style="background: #312e81; color: #c7d2fe; border: 1px solid #4338ca; padding: 8px 16px; border-radius: 12px; font-size: 12px; font-weight: 600; cursor: pointer;">
+            Tap to Refresh
+          </button>
+        </div>
+      </div>
+      <style>
+        @keyframes sst-spin {
+          to { transform: rotate(360deg); }
+        }
+      </style>
+    </div>
+
+    <script>
+      // Show retry button after 7 seconds if React hasn't mounted yet on slow mobile connections
+      setTimeout(function() {
+        var retry = document.getElementById('sst-retry');
+        var status = document.getElementById('sst-status');
+        if (retry) retry.style.display = 'block';
+        if (status) status.innerText = 'Connecting on slow network...';
+      }, 7000);
+
+      // Handle Vite chunk load errors gracefully (e.g. when Vercel deploys new hashes)
+      window.addEventListener('vite:preloadError', function(e) {
+        e.preventDefault();
+        console.warn('Preload error caught. Resetting caches...');
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.getRegistrations().then(function(regs) {
+            for (var i = 0; i < regs.length; i++) regs[i].unregister();
+          });
+        }
+        if ('caches' in window) {
+          caches.keys().then(function(keys) {
+            for (var i = 0; i < keys.length; i++) caches.delete(keys[i]);
+          });
+        }
+        window.location.reload();
+      });
+    </script>
+
+    <script type="module" src="/src/main.tsx"></script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        if (window.location.hostname.includes('localhost') || window.location.hostname.includes('ais-dev') || window.location.hostname.includes('run.app')) {
+          navigator.serviceWorker.getRegistrations().then((registrations) => {
+            for (const registration of registrations) {
+              registration.unregister();
+            }
+          });
+        } else {
+          window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/sw.js', { scope: '/' })
+              .then((reg) => {
+                reg.update();
+              })
+              .catch((err) => {
+                console.warn('PWA Service Worker note:', err);
+              });
+          });
+        }
+      }
+    </script>
+  </body>
+</html>
+
